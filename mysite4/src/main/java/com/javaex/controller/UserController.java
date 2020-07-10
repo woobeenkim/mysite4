@@ -85,5 +85,13 @@ public class UserController {
 		return "redirect:/main";
 	}
 	
+	@RequestMapping("user/logout")
+	public String logout(@ModelAttribute UserVo uservo,
+						 HttpSession session){
+		session.removeAttribute("authUser");
+		session.invalidate();
+		return"redirect:/main";
+	}
+	
 	
 }

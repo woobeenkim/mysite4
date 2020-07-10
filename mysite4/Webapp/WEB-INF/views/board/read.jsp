@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,46 +15,10 @@
 <body>
 	<div id="wrap">
 
-		<div id="header">
-			<h1><a href="">MySite</a></h1>
-			
-			
-			<!--  -->
-				<!-- 로그인실패시, 로그인전 -->
-				<ul>
-					<li><a href="">로그인</a></li>
-					<li><a href="">회원가입</a></li>
-				</ul>
-				
-			<!-- 로그인성공했을때 -->	
-			<!-- 
-				<ul>
-					<li>황일영 님 안녕하세요^^</li>
-					<li><a href="">로그아웃</a></li>
-					<li><a href="">회원정보수정</a></li>
-				</ul>
-			-->
-		</div>
-		<!-- //header -->
-		
-		<div id="nav">
-			<ul>
-				<li><a href="">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
+		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 		<!-- //nav -->
 
-		<div id="aside">
-			<h2>게시판</h2>
-			<ul>
-				<li><a href="">일반게시판</a></li>
-				<li><a href="">댓글게시판</a></li>
-			</ul>
-		</div>
+		<jsp:include page="/WEB-INF/views/include/asideboard.jsp"></jsp:include>
 		<!-- //aside -->
 
 		<div id="content">
@@ -73,48 +38,40 @@
 
 			<div id="board">
 				<div id="read">
-					<form action="#" method="get">
+					<form action="${pageContext.request.contextPath}/board/read" method="get">
 						<!-- 작성자 -->
 						<div class="form-group">
 							<span class="form-text">작성자</span>
-							<span class="form-value">정우성</span>
+							<span class="form-value">${boardvo.name}</span>
 						</div>
 						
 						<!-- 조회수 -->
 						<div class="form-group">
 							<span class="form-text">조회수</span>
-							<span class="form-value">123</span>
+							<span class="form-value">${boardvo.hit}</span>
 						</div>
 						
 						<!-- 작성일 -->
 						<div class="form-group">
 							<span class="form-text">작성일</span>
-							<span class="form-value">2020-03-02</span>
+							<span class="form-value">${boardvo.reg_date}</span>
 						</div>
 						
 						<!-- 제목 -->
 						<div class="form-group">
 							<span class="form-text">제 목</span>
-							<span class="form-value">여기에는 글제목이 출력됩니다.</span>
+							<span class="form-value">${boardvo.title}</span>
 						</div>
 					
 						<!-- 내용 -->
 						<div id="txt-content">
-							<span class="form-value" >
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-							</span>
+							<span class="form-value" >${boardvo.content}</span>
 						</div>
+						<c:if test="${authUser.no == boardvo.user_no}">
+						<a id="btn_modify" href="${pageContext.request.contextPath}/board/mform?no=${authUser.no}">수정</a>
+						</c:if>
 						
-						<a id="btn_modify" href="">수정</a>
-						<a id="btn_modify" href="">목록</a>
-						
+						<a id="btn_modify" href="${pageContext.request.contextPath}/board">목록</a>
 					</form>
 	                <!-- //form -->
 				</div>
@@ -125,9 +82,7 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 
-		<div id="footer">
-			Copyright ⓒ 2020 황일영. All right reserved
-		</div>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 		<!-- //footer -->
 	</div>
 	<!-- //wrap -->

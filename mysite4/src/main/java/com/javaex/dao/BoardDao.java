@@ -24,4 +24,23 @@ public class BoardDao {
 		BoardVo boardvo = sqlSession.selectOne("board.getPerson",no);
 		return boardvo;
 	}
+	
+	public void phit(BoardVo boardvo) {
+		sqlSession.update("board.phit", boardvo);
+	}
+	
+	public void delete(int no) {
+		System.out.println(no);
+		sqlSession.delete("board.delete", no);
+	}
+	
+	public int add(BoardVo boardvo) {
+		System.out.println(boardvo);
+		int add = sqlSession.insert("board.add", boardvo);
+		return  add;
+	}
+	public List<BoardVo> search(String title){
+		List<BoardVo> boardlist = sqlSession.selectList("board.search", title);
+		return boardlist;
+	}
 }

@@ -37,9 +37,9 @@
 
 			<div id="board">
 				<div id="list">
-					<form action="" method="">
+					<form action="${pageContext.request.contextPath}/board/search" method="get">
 						<div class="form-group text-right">
-							<input type="text">
+							<input type="text" name="title">
 							<button type="submit" id=btn_search>검색</button>
 						</div>
 					</form>
@@ -59,11 +59,13 @@
 						<c:forEach var="boardvo" items="${bList}">
 							<tr>
 								<td>${boardvo.no}</td>
-								<td class="text-left"><a href="${pageContext.request.contextPath}/board/read?no=${boardvo.no}">${boardvo.title}</a></td>								
+								<td class="text-left"><a href="${pageContext.request.contextPath}/board/read?no=${boardvo.no}&hit=${boardvo.hit}">${boardvo.title}</a></td>								
 								<td>${boardvo.name}</td>
 								<td>${boardvo.hit}</td>
 								<td>${boardvo.reg_date}</td>
+								<c:if test="${authUser.no == boardvo.user_no}">
 								<td><a href="${pageContext.request.contextPath}/board/delete?no=${boardvo.no}">[삭제]</a></td>
+								</c:if>
 							</tr>
 							</c:forEach>
 						</tbody>
@@ -98,9 +100,7 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 
-		<div id="footer">
-			Copyright ⓒ 2020 황일영. All right reserved
-		</div>
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 		<!-- //footer -->
 	</div>
 	<!-- //wrap -->

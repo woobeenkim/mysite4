@@ -33,7 +33,43 @@
 		   	and			u.no = b.user_no
 		]]>
    </select> 
+   
+   <delete id = "delete" parameterType="int">
+   delete		board
+   where		no = #{no}
+   </delete>
+   
+   <insert id = "add" parameterType="com.javaex.vo.BoardVo">
+   	insert into board values(
+   							SEQ_BOARD_NO.nextval,
+   							#{title},
+   							#{content},
+   							#{hit},
+   							sysdate,
+   							#{user_no})
+   </insert>
   
+   <update id = "phit" parameterType="com.javaex.vo.BoardVo">
+		update			board
+		set				hit = 	#{hit} + 1
+		where 			no = #{no}
+  </update>
+  
+  <select id="search"  resultType="com.javaex.vo.BoardVo">
+     <!-- 이 구문안에는 전부 쿼리문이니 태그로 읽지 말아라 예)<>+=요런거 -->
+		<![CDATA[
+		   select		b.no,
+		   				b.title,
+		   				b.content,
+		   				b.hit,
+		   				b.reg_date,
+		   				b.user_no,
+		   				u.name
+		   	from		board b, users u
+		   	where		u.no = b.user_no
+		   	and			b.title like '%'||#{title}||'%'
+		]]>
+   </select> 
 	
 	
 </mapper>
